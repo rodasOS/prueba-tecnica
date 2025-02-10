@@ -1,0 +1,38 @@
+# --- General ---
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.bak
+*.tmp
+.idea/
+.vscode/
+
+# --- Backend (ASP.NET Web API) ---
+backend/.vs/
+backend/bin/
+backend/obj/
+backend/prueba/bin/
+backend/prueba/obj/
+backend/prueba/*.db
+backend/prueba/*.db-journal
+backend/prueba/appsettings*.json
+backend/prueba/secrets.json
+backend/prueba/*.sqlite
+backend/prueba/*.pid
+backend/prueba/*.suo
+backend/prueba/*.user
+
+# Archivos de solución de Visual Studio que no deben subirse
+backend/*.suo
+backend/*.user
+backend/*.vsconfig
+
+# --- Frontend (Angular) ---
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+frontend/.angular/
+frontend/*.log
+frontend/*.map
+frontend/*.env
