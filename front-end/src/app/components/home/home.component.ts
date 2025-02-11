@@ -28,13 +28,13 @@ export class HomeComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.studentForm = this.fb.group({
-      name: [''],
-      birth_date: [''],
-      father_name: [''],
-      mother_name: [''],
-      grade: [''],
-      section: [''],
-      admission_date: [''],
+      nombre: [''],
+      fechaNacimiento: [''],
+      nombrePadre: [''],
+      nombreMadre: [''],
+      grado: [''],
+      seccion: [''],
+      fechaIngreso: [''],
     });
   }
 
@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
             this.students = data;
           },
           error: (error) => {
-            console.error('Error al obtener estudiantes');
+            console.error('Error al obtener estudiantes:' + error);
           },
         });
     }
@@ -71,18 +71,30 @@ export class HomeComponent implements OnInit {
       ?.split('=')[1];
   }
 
+  // Función para formatear la fecha en formato ISO 8601
+  formatDate(fecha: string | Date): string {
+    if (!fecha) return ''; // Manejo de valores nulos o vacíos
+    return new Date(fecha).toISOString();
+  }
+
+  // console.log(this.formatDate(this.studentForm.get('fechaNacimiento')?.value));
+
   addStudent(): void {
     if (this.studentForm.valid) {
+      const studentData = {
+        ...this.studentForm.value,
+        fechaNacimiento: this.formatDate(
+          this.studentForm.get('fechaNacimiento')?.value
+        ),
+      };
+
       this.http
-        .post<Student>(
-          'https://localhost:7205/api/Alumno/',
-          this.studentForm.value,
-          {
-            headers: {
-              'x-api-key': 'f7e6d1158a2883e692865af3e372951f2934cb08',
-            },
-          }
-        )
+        .post<Student>('https://localhost:7205/api/Alumno/', studentData, {
+          headers: {
+            'Content-Type': 'application/json',
+            // 'x-api-key': 'f7e6d1158a2883e692865af3e372951f2934cb08',
+          },
+        })
         .subscribe({
           next: () => {
             const newStudent = this.studentForm.value;
