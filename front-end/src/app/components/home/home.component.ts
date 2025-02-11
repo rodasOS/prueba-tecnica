@@ -78,7 +78,6 @@ export class HomeComponent implements OnInit {
           'https://localhost:7205/api/Alumno/',
           this.studentForm.value,
           {
-            withCredentials: true,
             headers: {
               'x-api-key': 'f7e6d1158a2883e692865af3e372951f2934cb08',
             },
